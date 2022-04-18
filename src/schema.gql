@@ -12,5 +12,6 @@ type Query {
 }
 
 type User {
-  name: ID!
+  id: ID!
+  name: String!
 }

@@ -9,8 +9,14 @@
   "author": "Caster Lumos <48294478+CasterLumos@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.8",
     "apollo-server": "^3.6.7",
+    "bcryptjs": "^2.4.3",
+    "class-validator": "^0.13.2",
+    "dotenv": "^16.0.0",
     "graphql": "15.3.0",
+    "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1"
   },

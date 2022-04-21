@@ -4,14 +4,9 @@ import { User, UserData } from "../models/User";
 import crypto from "crypto";
 import * as dotenv from "dotenv";
 import bcrypt from 'bcryptjs';
+import { prismaClient } from "../database/prismaClient";
 dotenv.config();
 const { sign } = pkg;
-
-function generateToken(params = {}) {
-    const IV: string = (process.env.IV as string);
-    return sign(params, IV ,{expiresIn:86400,})
-}
-
 
 @Resolver()
 export class UserResolver {
@@ -20,14 +15,16 @@ export class UserResolver {
     async createUser(@Arg('dataUser') dataUser: UserData) {
         const {name, address, city,phone,mail, password} = dataUser
         const id = crypto.randomUUID()
-        const token = generateToken({ id })
-        const ENCRYPTION_KEY: string = (process.env.ENCRYPTION_KEY as string);
-        const user = {id, name, address, city,phone,mail,token, password: await bcrypt.hashSync(password, 12)}
-        this.data.push(user)
-        return user
+        const IV: string = (process.env.IV as string);
+        const token = sign({id}, IV ,{expiresIn:86400,})
+        const user = {name, address, city,phone,mail,token, password: bcrypt.hashSync(password, 12)}
+        const user_db = await prismaClient.user.create({
+            data: user
+        })
+        return user_db
     }
     @Query(() =>[User])
     async users() {
-        return this.data;
+        return prismaClient.user.findMany()
     }
 } 

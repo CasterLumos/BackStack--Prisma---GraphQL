@@ -27,3 +27,8 @@
 4. Rode `yarn prisma generate` para instalar os models do prisma no projeto
 5. Rode `yarn dev` ou `npm run dev` para rodar a aplicação;
 6. Acesse a URL `http://localhost:4003`;
+7. Não esqueça de criar um arquivo .env
+```
+IV=5183666c72eec9e4
+DATABASE_URL=postgresql://user:password@localhost:5432/backstack
+````
